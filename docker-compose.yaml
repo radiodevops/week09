@@ -13,5 +13,20 @@ services:
       - ./init-scripts:/docker-entrypoint-initdb.d
     restart: unless-stopped
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo-demo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: school_db_mongo  
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init-scripts:/docker-entrypoint-initdb.d  
+    restart: unless-stopped
+
 volumes:
   postgres_data:
+  mongo_data:  
